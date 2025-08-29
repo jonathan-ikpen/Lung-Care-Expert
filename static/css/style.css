@@ -48,6 +48,7 @@ p{line-height:1.5;font-size:15px;margin:0 0 12px 0;color:var(--muted);font-weigh
 .stat{flex:1f;background:linear-gradient(180deg,#fbfdff,#fff);padding:10px;border-radius:12px;text-align:left;}
 .stat strong{display:block;font-size:24px}
 .illustration img{width:260px;display:block;margin-top:6px;}
+.demo-img img{width:100%;max-width:340px;}
 
 /* how */
 .how{margin-top:18px;padding:18px}
@@ -56,7 +57,7 @@ p{line-height:1.5;font-size:15px;margin:0 0 12px 0;color:var(--muted);font-weigh
 .step-num{width:32px;height:32px;background:var(--primary);color:#fff;display:flex;align-items:center;justify-content:center;border-radius:50%;font-weight:700;margin-bottom:8px}
 
 /* Demo */
-.demo{margin-top:18px;padding:18px;display:flex;gap:20px;flex-wrap:wrap;justify-content:center}
+.demo{margin-top:18px;padding:18px;display:flex;gap:20px;flex-wrap:wrap;justify-content:space-between}
 .demo .summary-card{display:flex;flex-direction:column;align-items:flex-start;gap:20px;padding:28px;}
 
 /* interview */
@@ -99,6 +100,7 @@ p{line-height:1.5;font-size:15px;margin:0 0 12px 0;color:var(--muted);font-weigh
 @media (max-width:900px){
   .hero-landing{flex-direction:column}
   .hero-right{width:100%}
+  .hero-right .illustration{align-self:center}
 }
 
 /* Animations */
@@ -112,4 +114,6 @@ p{line-height:1.5;font-size:15px;margin:0 0 12px 0;color:var(--muted);font-weigh
 
 @media only screen and (max-width: 600px) {
   .hide-mobile {display:none;}
+  .order-2{order:2;}
+  .order-1{order:1;}
 }

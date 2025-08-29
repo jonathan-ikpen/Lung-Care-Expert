@@ -2,7 +2,7 @@
 {% block content %}
 <section class="hero-landing card">
   <div class="hero-left fade-in">
-    <h1 class="title">🫁 LungCare Expert</h1>
+    <h1 class="title">&#x1FAC1; LungCare Expert</h1>
     </br>
     <p class="lead">
       An <strong>interactive</strong> and <strong>explainable</strong> knowledge-based expert system
@@ -43,7 +43,12 @@
 </section>
 
 <section class="demo card fade-in">
-  <div class="card summary-card">
+  <div class="hero-right slide-in order-2">
+    <div class="demo-img slide-in" style="align-self:center;">
+      <img src="{{ url_for('static', filename='img/lung/doc2.png') }}" alt="lungs illustration" />
+    </div>
+  </div>
+  <div class="card summary-card order-1">
       <h2>Quick demo</h2>
       <p class="muted">Try typing <em>"I have fever and a dry cough"</em> in the chatbot, or start the interview to step through detailed questions.</p>
 
