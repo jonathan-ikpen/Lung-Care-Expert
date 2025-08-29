@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="card interview-outer">
+  <div class="interview-header">
+    <div>
+      <h2 class="title">Structured Interview</h2>
+      <p class="muted">Answer step-by-step questions. Use the sliders and numeric inputs for severity and temp.</p>
+    </div>
+    <div class="mini-stats">
+      <div class="badge">Progress <span id="progressPct">0%</span></div>
+    </div>
+  </div>
+
+  <div id="stepper"></div>
+
+  <div class="controls">
+    <button id="prevBtn" class="btn secondary">Back</button>
+    <button id="nextBtn" class="btn">Next</button>
+    <button id="finishBtn" class="btn success">Get Result</button>
+  </div>
+
+  <div id="resultPanel" class="result card hidden"></div>
+</section>
+
+<script src="{{ url_for('static', filename='js/interview.js') }}"></script>
+<script>const QUESTIONS = {{ questions|tojson }};</script>
+{% endblock %}

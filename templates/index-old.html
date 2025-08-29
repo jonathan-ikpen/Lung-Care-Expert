@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="hero-landing card">
+  <div class="hero-left">
+    <h1 class="title">LungCare Expert</h1>
+    <p class="lead">Interactive, explainable, and beautifully designed — interview or chat to get a clear, rule-based assessment and next steps.</p>
+    <div class="actions">
+      <a class="btn large" href="/interview">Start Interview</a>
+      <a class="btn ghost" href="/chat">Open Chatbot</a>
+    </div>
+    <div class="features">
+      <div class="feature"><img src="{{ url_for('static', filename='img/icon_rules.svg') }}" alt="" height="34"><h4>Explainable rules</h4><p class="muted">See which symptoms triggered suggestions.</p></div>
+      <div class="feature"><img src="{{ url_for('static', filename='img/icon_questions.svg') }}" alt="" height="34"><h4>Next-best questions</h4><p class="muted">Targeted follow-ups reduce uncertainty quickly.</p></div>
+      <div class="feature"><img src="{{ url_for('static', filename='img/icon_alert.svg') }}" alt="" height="34"><h4>Red-flag detection</h4><p class="muted">Immediate advice for emergency signs.</p></div>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="card summary-card">
+      <h3>Quick demo</h3>
+      <p class="muted">Try typing: <em>"I have fever and a dry cough"</em> in the chatbot, or start the interview to step through detailed questions.</p>
+      <div class="stats">
+        <div class="stat"><strong>6</strong><span>Conditions</span></div>
+        <div class="stat"><strong>20+</strong><span>Symptoms</span></div>
+        <div class="stat"><strong>Rule-based</strong><span>Explainable</span></div>
+      </div>
+      <a class="btn small" href="/interview">Try Interview</a>
+    </div>
+    <div class="illustration"><img src="{{ url_for('static', filename='img/lungs_illustration.svg') }}" alt="lungs" /></div>
+  </div>
+</section>
+
+<section class="how card">
+  <h2>How it works</h2>
+  <div class="how-grid">
+    <div class="how-step"><div class="step-num">1</div><h4>Answer questions</h4><p class="muted">Guided stepper collects structured facts and severity.</p></div>
+    <div class="how-step"><div class="step-num">2</div><h4>Rule-based inference</h4><p class="muted">IF–THEN rules score likely conditions and show which rules fired.</p></div>
+    <div class="how-step"><div class="step-num">3</div><h4>Advice & next steps</h4><p class="muted">Get prioritized possibilities and guidance on when to seek care.</p></div>
+  </div>
+</section>
+{% endblock %}

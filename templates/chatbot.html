@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="card chat enhanced-chat">
+  <h2 class="title">Chatbot</h2>
+  <div id="chatWindow" class="chat-window" role="log" aria-live="polite">
+    <div class="msg bot">Hello! Tell me your symptoms (e.g., "fever and dry cough"). You can also say "diagnose" to see results.</div>
+  </div>
+
+  <div id="quickReplies" class="quick-replies"></div>
+
+  <form id="chatForm" class="chat-form">
+    <input id="chatInput" type="text" placeholder="Type your message..." autocomplete="off" required>
+    <button class="btn" type="submit">Send</button>
+  </form>
+</section>
+<script src="{{ url_for('static', filename='js/chatbot.js') }}"></script>
+{% endblock %}
