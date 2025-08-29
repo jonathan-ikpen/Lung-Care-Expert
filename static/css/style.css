@@ -109,3 +109,7 @@ p{line-height:1.5;font-size:15px;margin:0 0 12px 0;color:var(--muted);font-weigh
 
 /* General Styles */
 .hide {display:none}
+
+@media only screen and (max-width: 600px) {
+  .hide-mobile {display:none;}
+}

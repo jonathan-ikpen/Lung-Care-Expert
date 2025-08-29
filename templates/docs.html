@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="card" style="max-width: 900px; margin: 32px auto; padding: 44px 48px;">
+  <div style="background:#fff8e1; border:1px solid #ffe082; color:#7c4700; border-radius:10px; padding:16px 20px; margin-bottom:24px; font-size:15px;">
+    <strong>Disclaimer:</strong> LungCare Expert is an educational tool and does not provide medical advice, diagnosis, or treatment. It is not a substitute for professional medical judgment. Always consult a qualified healthcare provider with any questions you may have regarding a medical condition.
+  </div>
+
+  <h1 class="title" style="font-size:2.2rem; margin-bottom: 22px;">LungCare Expert Documentation</h1>
+  <p class="lead" style="margin-bottom: 36px; line-height:1.7;">This page provides an overview of the LungCare Expert project, its features, usage, and technical details.</p>
+
+
+
+  <h2 style="margin-top:36px; margin-bottom:12px;">Overview</h2>
+  <p style="margin-bottom:28px; line-height:1.7;">LungCare Expert is an interactive, explainable, knowledge-based expert system for triaging lung infections. It provides both a structured interview and a chatbot interface to help users get an initial, rule-based assessment of possible lung conditions.</p>
+
+  <h2 style="margin-top:36px; margin-bottom:12px;">What Can LungCare Expert Diagnose?</h2>
+  <p style="margin-bottom:28px; line-height:1.7;">
+    This project is designed to help triage and suggest possible causes for a range of lung-related symptoms. Based on your answers, it can suggest the likelihood of the following conditions:
+  </p>
+  <ul style="margin-bottom:28px; line-height:1.7;">
+    <li style="margin-bottom:10px;"><strong>Community-acquired pneumonia</strong></li>
+    <li style="margin-bottom:10px;"><strong>Acute bronchitis</strong></li>
+    <li style="margin-bottom:10px;"><strong>COVID-19 / Viral lower respiratory infection</strong></li>
+    <li style="margin-bottom:10px;"><strong>Tuberculosis (TB) suspicion</strong></li>
+    <li style="margin-bottom:10px;"><strong>Asthma exacerbation (non-infectious)</strong></li>
+    <li style="margin-bottom:10px;"><strong>Pulmonary embolism (PE) suspicion</strong></li>
+  </ul>
+  <p style="margin-bottom:28px; line-height:1.7;">
+    <strong>Capabilities:</strong> The system can:
+    <ul style="margin-bottom:28px; line-height:1.7;">
+      <li style="margin-bottom:10px;">Identify and explain which symptoms and rules led to each suggestion.</li>
+      <li style="margin-bottom:10px;">Detect red-flag symptoms that may indicate a medical emergency (e.g., blue lips, confusion, very high fever, low oxygen).</li>
+      <li style="margin-bottom:10px;">Guide users through adaptive, step-by-step questions to reduce diagnostic uncertainty.</li>
+      <li style="margin-bottom:10px;">Provide clear, explainable advice and next steps based on the user's responses.</li>
+    </ul>
+    <em>Note: This tool is for educational and triage support only. It does not replace professional medical evaluation.</em>
+  </p>
+
+
+  <h2 style="margin-top:36px; margin-bottom:12px;">Features</h2>
+  <ul style="margin-bottom:28px; line-height:1.7;">
+    <li style="margin-bottom:10px;"><strong>Explainable rules:</strong> See which symptoms triggered each suggestion and why.</li>
+    <li style="margin-bottom:10px;"><strong>Smart questions:</strong> Adaptive follow-ups reduce uncertainty quickly.</li>
+    <li style="margin-bottom:10px;"><strong>Red-flag detection:</strong> Immediate advice for emergency symptoms.</li>
+    <li style="margin-bottom:10px;"><strong>Modern UI:</strong> Responsive, accessible, and user-friendly design.</li>
+  </ul>
+
+
+  <h2 style="margin-top:36px; margin-bottom:12px;">How to Use</h2>
+  <ol style="margin-bottom:28px; line-height:1.7;">
+    <li style="margin-bottom:10px;">Start the app with <code>python app.py</code>.</li>
+    <li style="margin-bottom:10px;">Open your browser and go to <code>http://localhost:5000</code>.</li>
+    <li style="margin-bottom:10px;">Choose <strong>Start Interview</strong> for a step-by-step assessment, or <strong>Open Chatbot</strong> for a conversational experience.</li>
+    <li style="margin-bottom:10px;">Follow the prompts and review the possible conditions and advice provided.</li>
+  </ol>
+
+
+  <h2 style="margin-top:36px; margin-bottom:12px;">Project Structure</h2>
+  <ul style="margin-bottom:28px; line-height:1.7;">
+    <li style="margin-bottom:10px;"><code>app.py</code> – Main Flask application.</li>
+    <li style="margin-bottom:10px;"><code>inference_engine.py</code> – Core logic for rule-based inference.</li>
+    <li style="margin-bottom:10px;"><code>knowledge_base.py</code> – Symptom and condition definitions, rules, and synonyms.</li>
+    <li style="margin-bottom:10px;"><code>static/</code> – CSS, JS, and image assets.</li>
+    <li style="margin-bottom:10px;"><code>templates/</code> – HTML templates for all pages.</li>
+  </ul>
+
+
+  <h2 style="margin-top:36px; margin-bottom:12px;">Customization</h2>
+  <p style="margin-bottom:28px; line-height:1.7;">You can add or modify rules, symptoms, and conditions in <code>knowledge_base.py</code> to adapt the system to new requirements or medical knowledge.</p>
+
+  <h2 style="margin-top:36px; margin-bottom:12px;">Contact & Support</h2>
+  <p style="margin-bottom:8px; line-height:1.7;">For questions, suggestions, or contributions, please visit the <a href="https://github.com/jonathan-ikpen/Lung-Care-Expert" target="_blank">GitHub repository</a>.</p>
+</section>
+{% endblock %}

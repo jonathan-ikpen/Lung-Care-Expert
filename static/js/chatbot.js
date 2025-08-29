@@ -4,6 +4,7 @@ const chatInput = document.getElementById("chatInput");
 const quickReplies = document.getElementById("quickReplies");
 
 let state = {symptoms:[], asked:[]};
+let lastFollowup = null;
 
 function addMsg(text, who="bot", small=null){
   const div = document.createElement("div");
@@ -20,7 +21,7 @@ function addMsg(text, who="bot", small=null){
   chatWindow.scrollTop = chatWindow.scrollHeight;
 }
 
-function setQuickReplies(items){
+function setQuickReplies(items, qid=null){
   quickReplies.innerHTML = "";
   if(!items || !items.length) return;
   items.forEach(it=>{
@@ -28,25 +29,18 @@ function setQuickReplies(items){
     btn.className = "quick-reply";
     btn.textContent = it;
     btn.addEventListener("click", ()=>{
-      chatInput.value = it;
-      chatForm.dispatchEvent(new Event('submit', {cancelable:true}));
+      addMsg(it, "user");  // show label, not raw value
+      sendChat(it, qid);
     });
     quickReplies.appendChild(btn);
   });
 }
 
-chatForm.addEventListener("submit", async (e)=>{
-  e.preventDefault();
-  const text = chatInput.value.trim();
-  if(!text) return;
-  addMsg(text, "user");
-  chatInput.value = "";
-  setQuickReplies([]);
-
+async function sendChat(text, qid=null){
   const res = await fetch("/api/chat", {
     method:"POST",
     headers:{"Content-Type":"application/json"},
-    body: JSON.stringify({message:text, state})
+    body: JSON.stringify({message:text, state, qid})
   });
   const data = await res.json();
   state = data.state || state;
@@ -56,13 +50,26 @@ chatForm.addEventListener("submit", async (e)=>{
   if(data.followup){
     addMsg(data.followup.text, "bot");
     const sugg = data.followup.suggestions || [];
-    // convert choice labels to short replies
-    setQuickReplies(sugg);
+    lastFollowup = data.followup;
+    setQuickReplies(sugg, data.followup.id);
   } else {
     addMsg(data.reply, "bot");
     if(data.rules_triggered?.length){
-      const expl = data.rules_triggered.map(r=>`${r.condition}: ${r.explanation} (matched: ${r.rule.join(", ")})`).join(" | ");
+      const expl = data.rules_triggered.map(
+        r=>`${r.condition}: ${r.explanation} (matched: ${r.rule.join(", ")})`
+      ).join(" | ");
       addMsg("Explanation: " + expl, "bot", "Rules triggered");
     }
+    lastFollowup = null;
   }
+}
+
+chatForm.addEventListener("submit", (e)=>{
+  e.preventDefault();
+  const text = chatInput.value.trim();
+  if(!text) return;
+  addMsg(text, "user");
+  chatInput.value = "";
+  setQuickReplies([]);
+  sendChat(text, lastFollowup ? lastFollowup.id : null);
 });

@@ -10,7 +10,10 @@ const answers = {};
 
 function renderStep(idx){
   const q = QUESTIONS[idx];
-  const pct = Math.round((idx)/QUESTIONS.length*100);
+  let pct = 0;
+  if (QUESTIONS.length > 1) {
+    pct = Math.round((idx / (QUESTIONS.length - 1)) * 100);
+  }
   progressPct.textContent = pct + "%";
   stepper.innerHTML = `
     <div class="progress"><div class="bar" style="width:${pct}%"></div></div>
@@ -118,5 +121,14 @@ function showResult(data){
   `;
 }
 
-// Initial render
-renderStep(current);
+
+// Initial render: ensure QUESTIONS is defined and DOM is ready
+if (typeof QUESTIONS !== 'undefined') {
+  renderStep(current);
+} else {
+  window.addEventListener('DOMContentLoaded', function() {
+    if (typeof QUESTIONS !== 'undefined') {
+      renderStep(current);
+    }
+  });
+}
