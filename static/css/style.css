@@ -116,4 +116,5 @@ p{line-height:1.5;font-size:15px;margin:0 0 12px 0;color:var(--muted);font-weigh
   .hide-mobile {display:none;}
   .order-2{order:2;}
   .order-1{order:1;}
+  .logo-txt{display:none;}
 }
