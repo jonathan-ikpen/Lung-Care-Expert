@@ -107,17 +107,41 @@ function showResult(data){
   const {ranked, advice, facts, rules_triggered} = data;
   resultPanel.classList.remove("hidden");
   if(!ranked || !ranked.length){
-    resultPanel.innerHTML = `<h3>No clear result</h3><p class="muted">${advice}</p><div class="muted">Facts: ${facts.join(", ")}</div>`;
+    resultPanel.innerHTML = `<h3>No clear result</h3><p class="muted">${advice}</p><div class="muted" style="margin-top:18px;"><strong>Facts:</strong> <span style="word-break:break-word;">${facts.join(", ")}</span></div>`;
     return;
   }
-  const items = ranked.map(r=>`<li><div><strong>${r.condition}</strong><div class="meta">${Math.round(r.confidence*100)}% probable</div></div></li>`).join("");
-  const rules = (rules_triggered||[]).map(rr=>`<div class="muted">${rr.condition}: ${rr.explanation} (matched: ${rr.rule.join(", ")})</div>`).join("");
+  // Styled possible conditions
+  const items = ranked.map(r=>`
+    <li style="display:flex;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid #f1f5f9;">
+      <div style="flex:1;">
+        <strong style="font-size:1.08em;">${r.condition}</strong>
+      </div>
+      <div class="meta" style="font-size:15px;min-width:80px;text-align:right;">${Math.round(r.confidence*100)}% probable</div>
+    </li>
+  `).join("");
+
+  // Styled rules explanations with matched facts prettified
+  const rules = (rules_triggered||[]).map(rr=>`
+    <div style="margin-bottom:10px;padding:10px 14px;background:#f8fafc;border-radius:10px;border:1px solid #eef2f7;">
+      <strong>${rr.condition}:</strong> <span>${rr.explanation}</span><br>
+      <span class="muted" style="font-size:13px;">Matched: <code>${rr.rule.map(f=>f.replace(/_/g,' ')).join(", ")}</code></span>
+    </div>
+  `).join("");
+
+    // Styled facts as badges
+    const factsBlock = facts && facts.length ? `
+      <div class="muted" style="margin-top:18px;"><strong>Facts:</strong></div>
+      <div style="display:flex;flex-wrap:wrap;gap:8px 10px;margin-top:8px;">
+    ${facts.map(f=>`<span style=\"display:inline-block;padding:6px 12px;background:#f1f5f9;border-radius:999px;font-size:14px;color:#0b1220;border:1px solid #e5e7eb;\">${f.replace(/_/g,' ')}</span>`).join("")}
+      </div>
+    ` : "";
+
   resultPanel.innerHTML = `
-    <h3>Possible conditions</h3>
-    <ul class="ranked">${items}</ul>
-    <p class="muted">${advice}</p>
+    <h3 style="margin-bottom:18px;">Possible conditions</h3>
+    <ul class="ranked" style="padding-left:0;list-style:none;">${items}</ul>
+    <p class="muted" style="margin:18px 0 18px 0;">${advice}</p>
     <div style="margin-top:12px">${rules}</div>
-    <div class="muted" style="margin-top:8px">Facts: ${facts.join(", ")}</div>
+    ${factsBlock}
   `;
 }
 

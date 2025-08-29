@@ -6,10 +6,14 @@ const quickReplies = document.getElementById("quickReplies");
 let state = {symptoms:[], asked:[]};
 let lastFollowup = null;
 
-function addMsg(text, who="bot", small=null){
+function addMsg(text, who="bot", small=null, isHtml=false){
   const div = document.createElement("div");
   div.className = `msg ${who}`;
-  div.textContent = text;
+  if(isHtml){
+    div.innerHTML = text;
+  } else {
+    div.textContent = text;
+  }
   if(small){
     const sm = document.createElement("div");
     sm.className = "meta muted";
@@ -53,12 +57,24 @@ async function sendChat(text, qid=null){
     lastFollowup = data.followup;
     setQuickReplies(sugg, data.followup.id);
   } else {
-    addMsg(data.reply, "bot");
+    // Style possible conditions (if present)
+    if(data.reply && data.reply.startsWith("Possible conditions:")){
+      // Split conditions and advice if present
+      let [cond, ...rest] = data.reply.split(". ");
+      let advice = rest.join(". ");
+      cond = cond.replace(/_/g, " ");
+      let html = `<div style='margin-bottom:10px;'><strong>${cond}.</strong></div>`;
+      if(advice) html += `<div class='muted' style='margin-bottom:10px;'>${advice}</div>`;
+      addMsg(html, "bot", null, true);
+    } else {
+      addMsg(data.reply, "bot");
+    }
+    // Style explanations
     if(data.rules_triggered?.length){
-      const expl = data.rules_triggered.map(
-        r=>`${r.condition}: ${r.explanation} (matched: ${r.rule.join(", ")})`
-      ).join(" | ");
-      addMsg("Explanation: " + expl, "bot", "Rules triggered");
+      const expl = data.rules_triggered.map(r=>
+        `<div style='margin-bottom:8px;'><strong>${r.condition}:</strong> <span>${r.explanation}</span><br><span class='muted' style='font-size:13px;'>Matched: <code>${r.rule.map(f=>f.replace(/_/g,' ')).join(", ")}</code></span></div>`
+      ).join("");
+      addMsg(`<div style='margin-top:8px;'>${expl}</div>`, "bot", "Rules triggered", true);
     }
     lastFollowup = null;
   }
